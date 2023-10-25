@@ -1,4 +1,4 @@
-# Copyright 2021 Manna Harbour
+# Copyright 2022 Manna Harbour
 # https://github.com/manna-harbour/miryoku
 
 name: 'Build Inputs'
@@ -16,18 +16,45 @@ on:
         description: 'alphas'
         required: false
         default: 'default'
+        type: choice
+        options:
+        - "default"
+        - "AZERTY"
+        - "BEAKL15"
+        - "Colemak"
+        - "ColemakDHK"
+        - "Dvorak"
+        - "Halmak"
+        - "QWERTY"
+        - "QWERTZ"
+        - "Workman"
       nav:
         description: 'nav'
         required: false
         default: 'default'
+        type: choice
+        options:
+        - "default"
+        - "invertedT"
+        - "vi"
       clipboard:
         description: 'clipboard'
         required: false
         default: 'default'
+        type: choice
+        options:
+        - "default"
+        - "fun"
+        - "Mac"
+        - "Win"
       layers:
         description: 'layers'
         required: false
         default: 'default'
+        type: choice
+        options:
+        - "default"
+        - "flip"
       mapping:
         description: 'mapping'
         required: false
@@ -65,7 +92,7 @@ jobs:
           set-output()
           {
             json=`echo "$2" | jq -cnR 'inputs | split(",";"")'`
-            echo "::set-output name=$1::$json"
+            echo "$1=$json" >> $GITHUB_OUTPUT
           }
           set-output "board" "${{ github.event.inputs.board }}"
           set-output "shield" "${{ github.event.inputs.shield }}"
